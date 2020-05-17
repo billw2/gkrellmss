@@ -1,0 +1,81 @@
+GKrellMSS Theming
+=================
+
+This GkrellM Sound Scope plugin may be themed by setting values in
+the gkrellmrc and by putting custom images in the "sound" subdirectory
+of a theme.  Images may be .png, .jpg, or .xpm.
+See the Themes document at http://gkrellm.net for an explanation of
+krell_expand modes.
+
+GKrellMSS 2.0 requires at least GKrellM version 2.0.0.
+
+Standard Theme Images
+---------------------
+sound/bg_panel.png
+sound/krell.png - is not used
+
+
+Custom Theme Images
+-------------------
+sound/button_sweep_dn.png
+sound/button_sweep_up.png
+sound/krell_vu.png
+sound/krell_vu_peak.png
+sound/krell_sensitivity.png
+sound/spectrum_bar.png
+sound/spectrum_bar_light.png
+
+The spectrum_bar images should be 3 pixels wide and they will be rendered
+to the chart height.  The spectrum analyzer mode draws vertical bars of
+either width 2 or 1 pixels and these are picked out of the 3 pixels in
+the images.  The leftmost 2 are used for the 2 pixel bars and the rightmost
+1 is for the 1 pixel bar.
+
+
+gkrellmrc Settings (values shown are the program defaults)
+------------------
+
+# The vertical offset into the panel of the sweep buttons:
+set_integer sound_button_sweep_yoff 3
+
+# Set some values for the standard krell even though it is not used.  This is
+# because a custom style will be initialized to standard krell values at the
+# first setting of a custom style value.  Note that the standard krell in
+# turn has inherited its initial values from the global default meter style.
+# So it is a good idea to specify all the default values, and they must be
+# specified before any sound.custom_name lines.  If no standard or custom
+# StyleMeter sound.xxx settings are in the gkrellmrc, then values used will be
+# program coded defaults.
+StyleMeter sound.krell_yoff = 0
+StyleMeter sound.krell_depth = 1
+StyleMeter sound.krell_x_hot = -1
+StyleMeter sound.krell_expand = none
+StyleMeter sound.krell_left_margin = 0
+StyleMeter sound.krell_right_margin = 0
+
+# Set values for the vu krells that differ from the default values.
+# Also, GKrellMSS code looks at the krell_left_margin and if it is zero, will
+# force the krell left margin to be at the right edge of the sweep buttons.
+StyleMeter sound.vu_left.krell_yoff = 3
+StyleMeter sound.vu_left.krell_x_hot = 59
+StyleMeter sound.vu_left.krell_expand = left
+
+StyleMeter sound.vu_right.krell_yoff = 9
+StyleMeter sound.vu_right.krell_x_hot = 59
+StyleMeter sound.vu_right.krell_expand = left
+
+StyleMeter sound.vu_left_peak.krell_yoff = 2
+StyleMeter sound.vu_left_peak.krell_depth = 5
+
+StyleMeter sound.vu_right_peak.krell_yoff = 8
+StyleMeter sound.vu_right_peak.krell_depth = 5
+
+# All default krell values are good for the sensitivity krell.  But if
+# any settings are needed, they would be like:
+#StyleMeter sound.sensitivity.krell_yoff = 0
+
+# The sensitivity krell is normally in an "up" position and is moved to a
+# "down" or visible position when the mouse enters the GKrellMSS panel.
+# These variables control the up and down y positions.
+set_integer sound_krell_sensitivity_y_up -10
+set_integer sound_krell_sensitivity_y_dn 0

@@ -1,0 +1,207 @@
+#!/bin/sh
+
+# Configure some things automatically for GKrellMSS when make is run.
+# There is no need to run this configure before doing a make.
+#
+# Copyright (C) 2002-2020  Bill Wilson
+
+for i
+do
+	if [ "$i" = "--without-alsa" ]
+	then
+		without_alsa=yes
+	fi
+	if [ "$i" = "--without-esd" ]
+	then
+		without_esd=yes
+	fi
+done
+
+
+PKG_INCLUDE=`pkg-config gtk+-2.0 --cflags`
+PKG_LIB=`pkg-config gtk+-2.0 --libs`
+
+rm -f configure.h configure.log test test.o test.c
+
+touch configure.h
+
+CC=${CC-gcc}
+
+exec 5>./configure.log
+
+
+# -------------------------- fftw3 ----------------------------
+echo "Checking for fftw3... " 1>& 5
+
+cat << EOF > test.c
+#include <fftw3.h>
+#define	N 10
+
+int main()
+	{
+	double		*in, *out;
+	fftw_plan	p;
+
+	in = fftw_malloc(sizeof(double) * N);
+	out = fftw_malloc(sizeof(double) * N);
+	p = fftw_plan_r2r_1d(N, in, out, FFTW_R2HC, 0);
+	fftw_free(in);
+	fftw_free(out);
+	return 0;
+	}
+EOF
+
+$CC ${PKG_INCLUDE} -c test.c -o test.o 2>& 5
+$CC test.o -o test ${PKG_LIBS} -lfftw3 -lm 2>& 5
+
+if [ -e ./test ] && ./test
+then
+	echo "OK, defining HAVE_FFTW3" 1>& 5
+	echo "" 1>& 5
+	echo "#define HAVE_FFTW3 1" >> configure.h
+else
+	echo "" 1>& 5
+
+# -------------------------- fftw2 ----------------------------
+echo "Checking for fftw2... " 1>& 5
+rm -f test test.o
+
+cat << EOF > test.c
+#include <rfftw.h>
+#define	N 10
+
+int main()
+	{
+	fftw_real	*in, *out;
+	fftw_plan	p;
+
+	in = fftw_malloc(sizeof(fftw_real) * N);
+	out = fftw_malloc(sizeof(fftw_real) * N);
+	p = rfftw_create_plan(N, FFTW_REAL_TO_COMPLEX, FFTW_ESTIMATE);
+	fftw_free(in);
+	fftw_free(out);
+	return 0;
+	}
+EOF
+
+$CC ${PKG_INCLUDE} -c test.c -o test.o 2>& 5
+$CC test.o -o test ${PKG_LIBS} -lrfftw -lfftw -lm 2>& 5
+
+if [ -e ./test ] && ./test
+then
+	echo "OK, defining HAVE_FFTW2" 1>& 5
+	echo "" 1>& 5
+	echo "#define HAVE_FFTW2 1" >> configure.h
+else
+	echo "fftw support not included..." 1>& 5
+	echo "" 1>& 5
+fi
+fi
+
+
+
+# -------------------------- ALSA ----------------------------
+if [ "$without_alsa" != "yes" ]
+then
+echo "Checking for ALSA... " 1>& 5
+rm -f test test.o
+
+cat << EOF > test.c
+#include <alsa/asoundlib.h>
+#include <stdio.h>
+
+int main()
+	{
+	snd_pcm_t			*pcm;
+	snd_pcm_hw_params_t	*params;
+	int					err, rate = 44100;
+	snd_pcm_uframes_t	period_frames;
+
+	snd_pcm_hw_params_alloca(&params);
+
+	if (   (err = snd_pcm_open(&pcm, "plughw:0,0", SND_PCM_STREAM_CAPTURE,
+					SND_PCM_NONBLOCK)) < 0
+		|| (err = snd_pcm_hw_params_any(pcm, params)) < 0
+		|| (err = snd_pcm_hw_params_set_access(pcm, params,
+					SND_PCM_ACCESS_RW_INTERLEAVED)) < 0
+		|| (err = snd_pcm_hw_params_set_format(pcm, params,
+					SND_PCM_FORMAT_S16_LE)) < 0
+		|| (err = snd_pcm_hw_params_set_rate_near(pcm, params, &rate, 0)) < 0
+		|| (err = snd_pcm_hw_params_set_channels(pcm, params, 2)) < 0
+		|| (err = snd_pcm_hw_params_set_periods(pcm, params, 2, 0)) < 0
+		|| (err = snd_pcm_hw_params_set_buffer_size(pcm, params, 2048)) < 0
+		|| (err = snd_pcm_hw_params(pcm, params)) < 0
+	   )
+		{
+		/* Only care if it compiles, links, and runs.  Don't exclude ALSA just
+		|  because it fails to handle the sound card device.
+		*/
+		fprintf(stderr,
+		"ALSA check had a problem with plughw:0,0.  Continuing anyway...\n");
+		}
+	else
+		snd_pcm_hw_params_get_period_size(params, &period_frames, 0);
+	return 0;
+	}
+EOF
+
+$CC ${PKG_INCLUDE} -c test.c -o test.o 2>& 5
+$CC test.o -o test ${PKG_LIBS} -lasound 2>& 5
+
+if [ -e ./test ] && ./test 2>& 5
+then
+	echo "OK, defining HAVE_ALSA" 1>& 5
+	echo "" 1>& 5
+	echo "#define HAVE_ALSA 1" >> configure.h
+else
+	echo "ALSA support not included..." 1>& 5
+	echo "" 1>& 5
+fi
+fi
+# ------- end of ALSA check
+
+
+
+# -------------------------- Esound ----------------------------
+if [ "$without_esd" != "yes" ]
+then
+echo "Checking for esound... " 1>& 5
+rm -f test test.o
+
+cat << EOF > test.c
+#include <esd.h>
+
+#define SOUND_FORMAT (ESD_BITS16 | ESD_STEREO | ESD_STREAM | ESD_PLAY)
+
+int main()
+	{
+	int		fd;
+
+	fd = esd_monitor_stream(SOUND_FORMAT, 44100, 0,
+                        "gkrellmss");
+	esd_close(fd);
+	return 0;
+	}
+EOF
+
+$CC ${PKG_INCLUDE} `esd-config --cflags` -c test.c -o test.o 2>& 5
+$CC test.o -o test ${PKG_LIBS} `esd-config --libs` 2>& 5
+
+if [ -e ./test ] && ./test 2>& 5
+then
+	echo "OK, defining HAVE_ESOUND" 1>& 5
+	echo "" 1>& 5
+	echo "#define HAVE_ESOUND 1" >> configure.h
+else
+	echo "Esound support not included..." 1>& 5
+	echo "" 1>& 5
+fi
+fi
+# ------- end of esd check
+
+
+
+#-------------------------------------------------------------------
+
+rm -f test test.o test.c
+exit 0

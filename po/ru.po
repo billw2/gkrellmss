@@ -1,0 +1,202 @@
+# translation of ru.po to ru
+# Copyright (C) 2003, 2004 Free Software Foundation, Inc.
+# Alex Murygin <murygin@aitoc.com>, 2003, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gklremss 2.4\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-17 18:03+0200\n"
+"PO-Revision-Date: 2004-03-15 23:35+0200\n"
+"Last-Translator: Alex Murygin <murygin@aitoc.com>\n"
+"Language-Team: ru <ru@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/gkrellmss.c:94
+msgid "\\c\\fSound source:\\n\\cOff"
+msgstr "\\c\\fИсточник звука:\\n\\cВыкл"
+
+#: src/gkrellmss.c:205
+msgid "Display mode"
+msgstr ""
+
+#: src/gkrellmss.c:207
+msgid "Options menu"
+msgstr ""
+
+#: src/gkrellmss.c:796
+msgid "<h>GKrellMSS - GKrellM Sound Scope\n"
+msgstr ""
+
+#: src/gkrellmss.c:798
+msgid "<h>VU Meter\n"
+msgstr "<h>VU Счетчик\n"
+
+#: src/gkrellmss.c:799
+msgid ""
+"Two fast response krells show left and right audio signal levels\n"
+"averaged over about 1/20 sec.  There are also two slow decay peak\n"
+"response krells.\n"
+msgstr ""
+"Два малоинерционных крелла отображают уровень аудио сигналов\n"
+"правого и левого каналов с обновлением раз в 1/20 секунды. Также\n"
+"есть два медленно спадающих крелла.\n"
+
+#: src/gkrellmss.c:804
+msgid "<h>Chart\n"
+msgstr "<h>Чарт\n"
+
+#: src/gkrellmss.c:805
+msgid ""
+"The chart has oscilloscope and spectrum analyzer modes toggled by\n"
+"pressing the mode button on the chart.\n"
+msgstr ""
+"Есть два режима чарта. Осцилограф и анализатор спектра.\n"
+"Переключение между ними происходит нажатием на кнопку\n"
+"режима в области чарта.\n"
+
+#: src/gkrellmss.c:809
+msgid "<h>Panel Buttons\n"
+msgstr "<h>Кнопки на панели\n"
+
+#: src/gkrellmss.c:810
+msgid ""
+"In oscilloscope mode, the two buttons to the left of the VU Meter select\n"
+"an oscope horizontal sweep speed ranging from 100 microseconds (usec)\n"
+"per division to 50 miliseconds (msec) per division.  There are 5\n"
+"horizontal divisions, so a trace sweep time can range from 500 usec\n"
+"(1/2000 sec) to 250 msec (1/4 sec).\n"
+msgstr ""
+"В режиме осцилографа, с помощью двух кнопок слева от VU счетчика\n"
+"можно выбрать границы горизонтальной развертки скорости,\n"
+"проранжированной от 100 микросекунд (мкс), до 50 милисекунд (мс)\n"
+"в делении. Есть 5 горизонтальных делений, таким образом наблюдаемая\n"
+"область развертки может варьироваться от 500 мкс (1/2000 сек)\n"
+"до 250 мс (1/4 сек).\n"
+
+#: src/gkrellmss.c:816
+msgid ""
+"In spectrum analyzer mode, the two buttons select a frequency resolution\n"
+"and range.  As the '>' button is pressed, there is better lower\n"
+"frequency resolution at the expense of slower update times.\n"
+msgstr ""
+"В режиме спектрального анализатора, с помощью этих кнопок\n"
+"можно выбрать диапозон частот и разрешение. При нажатии\n"
+"'>' кнопки, увеличивается разрешение, но увеличивается время\n"
+"обновления.\n"
+
+#: src/gkrellmss.c:820
+msgid ""
+"<h>\n"
+"Mouse Button Actions:\n"
+msgstr ""
+"<h>\n"
+"Действия мыши:\n"
+
+#: src/gkrellmss.c:821 src/gkrellmss.c:824
+msgid "<b>\tLeft "
+msgstr "<b>\tЛевой кнопкой "
+
+#: src/gkrellmss.c:822
+msgid ""
+"click and drag in the VU Meter krell region to adjust VU Meter.\n"
+"\t\tand chart sensitivity.\n"
+msgstr ""
+"нажать и тянуть в области крелла VU счетчика\n"
+"\t\tдля регулировки VU счетчика и чувствительности чарта.\n"
+
+#: src/gkrellmss.c:825
+msgid ""
+"on the chart in spectrum analyzer mode toggles a frequency\n"
+"\t\tto draw highlighted.\n"
+msgstr ""
+"в области чарта в режиме анализатора спектра\n"
+"\t\tпереключает подсвечиваемую частоту.\n"
+
+#: src/gkrellmss.c:828
+msgid "<b>\tWheel "
+msgstr "<b>\tКолесо "
+
+#: src/gkrellmss.c:829
+msgid "button anywhere in the panel also adjusts sensitivity.\n"
+msgstr "везде регулирует чувствительность.\n"
+
+#: src/gkrellmss.c:830
+msgid "<b>\tMiddle "
+msgstr "<b>\tСредней кнопкой "
+
+#: src/gkrellmss.c:831
+msgid "on the chart toggles display of chart labels.\n"
+msgstr "в области чарта в(ы)ключаются подписи к чарту.\n"
+
+#: src/gkrellmss.c:832
+msgid "<b>\tRight "
+msgstr "<b>\tПравой кнопкой "
+
+#: src/gkrellmss.c:833
+msgid "on the panel opens this configuration window.\n"
+msgstr "открывается конфигурационное окно.\n"
+
+#: src/gkrellmss.c:852
+msgid "Options"
+msgstr "Опции"
+
+#: src/gkrellmss.c:857
+msgid "Info"
+msgstr "Инфо"
+
+#: src/gkrellmss.c:864
+msgid "About"
+msgstr "О программе"
+
+#: src/gkrellmss.c:868
+#, c-format
+msgid ""
+"GKrellMSS %d.%d %s\n"
+"GKrellM Sound Scope\n"
+"\n"
+"Copyright (c) 2002-2004 by Bill Wilson\n"
+"bill@gkrellm.net\n"
+"http://gkrellm.net\n"
+"\n"
+"Released under the GNU Public License"
+msgstr ""
+"GKrellMSS %d.%d %s\n"
+"GKrellM Sound Scope\n"
+"\n"
+"Copyright (c) 2002-2004 by Bill Wilson\n"
+"bill@gkrellm.net\n"
+"http://gkrellm.net\n"
+"\n"
+"Распространяется под GNU Public License"
+
+#: src/gkrellmss.c:940
+msgid "\\cSound error?\\n\\f\\cClick here to\\n\\f\\ctry to open"
+msgstr "\\cSound error?\\n\\f\\cНажмите здесь\\n\\f\\cдля выбора"
+
+#: src/option.c:72
+msgid "/Sound Source"
+msgstr "/Источник звука"
+
+#: src/sdlib.c:123
+msgid "Off"
+msgstr "Выкл"
+
+#: src/sdlib-esd.c:110
+#, fuzzy
+msgid "/Esound Control"
+msgstr "/Esound Управл"
+
+#: src/sdlib-esd.c:111
+msgid "/Esound Control/Standby"
+msgstr "/Esound Управл/Выключить"
+
+#: src/sdlib-esd.c:112
+msgid "/Esound Control/Resume"
+msgstr "/Esound Управл/Включить"
+
+#: src/sdlib-esd.c:113
+msgid "/Esound Control/Status"
+msgstr "/Esound Управл/Статус"

@@ -1,0 +1,33 @@
+The default make compiles a GKrellMSS plugin with support for
+both Esound and ALSA >= 0.9.7 if they are available.  Either
+fftw3 or fftw2 is required.
+
+Just:
+
+    make
+    make install
+
+Installs gkrellmss.so in /usr/local/lib/gkrellm2/plugins.
+To install into /usr/lib/gkrellm2/plugins:
+
+    make install PREFIX=/usr
+
+Or, you can manually install under your home directory with:
+
+    install src/gkrellmss.so ~/.gkrellm2/plugins
+
+The default install of translation files is to /usr/share/locale,
+so you should probably do a "make install" as root.  However, if you
+don't want any translation files installed, you can probably run
+as a normal user:
+
+    make install enable_nls=0
+
+=====================================================================
+When you run gkrellm, go to the plugins page of the config
+and enable "Sound Scope".
+
+Note to distribution packagers:
+    Run "make help" for how to compile gkrellmss with support for either
+    Esound or ALSA disabled.
+

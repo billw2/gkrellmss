@@ -1,0 +1,98 @@
+GKrellMSS - GKrellM Sound Scope Changelog
+
+
+2.7 Mon Oct 7, 2010
+--------------------
+	* Don't err out if can't set the ALSA bufsize we want.  Just continue
+	  on with whatever ALSA has.
+	* Add more/better error reporting when opening ALSA fails.
+
+
+2.6 Mon May 17, 2004
+--------------------
+	* Removed snd_pcm_wait() call where alsa thread started hanging in latest
+	  alsa version.
+	* Russion ru.po update from Alex Murygin, and fix a missed translation.
+
+2.5 Sat May 15, 2004
+--------------------
+	* Fix small chart decal display glitch when running under gkrellm >= 2.2.0.
+
+2.4 Fri Feb 20, 2004
+--------------------
+	* Add ALSA as a sound source if available.  Compile in multiple sound
+	  sources if available and dynamically switch between them via a menu
+	  popup from a button on the chart.
+	  Default compiles in support for both ALSA and Esound if available, but
+	  either may be selectively omitted with a make option.  Run "make help".
+	* Alsa support is for ALSA >= 0.9.7 (probably) and support for old
+	  ALSA 0.5 is dropped.
+	* Run esdctl commands for Esound standby/resume from the options menu.
+	* Use fftw3 if available, otherwise fall back to fftw2.
+	* Russian ru.po translation from Alex Murygin <murygin--at--aitoc.com>
+
+2.3 Mon Nov 25, 2002
+--------------------
+	* Made it work nicely with theme scaling if compiled under at
+	  least GKrellM 2.1.1 headers.
+	* Fix Makefile to compile under Darwin.
+
+2.2 Mon Oct 21, 2002
+--------------------
+	* gkrellmss.c wouldn't compile under pre 2.1 gkrellm.h header.
+
+2.1 Tue Oct 15, 2002
+--------------------
+	* If compiled with GKrellM >= 2.1.0 headers, use the
+	  gkrellm_spacers_set_types() function so gkrellm will know this is a
+	  hybrid monitor type (ie. chart on top of a meter panel).
+	  This will allow the right cap and spacer images to be applied for
+	  themes that have them.
+
+2.0 Tue Aug 27, 2002
+--------------------
+	* Final changes for GKrellM 2.0.
+	* Cleaned namespace.
+	* Fixed i18n setup.
+
+1.0 pre
+--------
+	* Ported to GKrellM 2.0 / Gtk+-2.0
+
+0.5 Sat Jun 15, 2002
+--------------------
+    * Added sdlib-alsa5.c for an ALSA 0.5 version.
+
+0.4 Mon Feb 25, 2002
+--------------------
+	* This GKrellMSS version requires at least GKrellM version 1.2.9.
+	* Added a spectrum analyzer mode.
+	* Changed toggle of chart labels from left to middle click so left
+	  click can select frequency to highlight.
+	* gkrellmrc settings of krell parameters now uses custom StyleMeter
+	  lines instead of set-integer lines.  All themes I'm aware of that
+	  have custom GKrellMSS images happen to have not put custom values
+	  in the gkrellmrc, so I'm not aware of any theme breakage.  See the
+	  Themes file.
+	* It wasn't a misspelling so much as bad eyes, but you can now have
+	  the images button_sweep_dn.png and button_sweep_up.png instead of
+	  buttom_sweep_dn.png and buttom_sweep_up.png.  The slightly more
+	  descriptive "buttom" is also accepted for backward compatibility :)
+
+
+0.3 Sun Oct 14, 2001
+--------------------
+	* Prevent potential segfault by making sure vert_sensitivity can't become
+	  zero if there is a faulty read from config.  This could happen if a user
+	  switches from using enabled<->non-enabled locale versions of gkrellm.
+
+
+0.2 Sat Aug 25, 2001
+--------------------
+	* If esd died, there was no way to reconnect.  So added a click on chart
+	  to reconnect.
+
+
+0.1	Wed Aug 22, 2001
+--------------------
+	* Initial release
